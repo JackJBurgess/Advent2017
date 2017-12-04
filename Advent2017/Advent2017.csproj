@@ -42,7 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DayFour.cs" />
     <Compile Include="DayOne.cs" />
+    <Compile Include="DayThree.cs" />
     <Compile Include="DayTwo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
