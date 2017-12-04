@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace Advent2017
 {
@@ -21,6 +18,15 @@ namespace Advent2017
             Console.Write(DayOne.Solve(dayOneInput, 1));
             Console.Write(" part Two: ");
             Console.Write(DayOne.Solve(dayOneInput, dayOneInput.Length / 2));
+
+            Console.WriteLine();
+            Console.WriteLine("=======");
+
+            var dayTwoInput = File.ReadAllLines("day2.txt");
+            Console.Write("Day 2: part one: ");
+            Console.Write(DayTwo.SolvePartOne(dayTwoInput));
+            Console.Write(" part two: ");
+            Console.Write(DayTwo.SolvePartTwo(dayTwoInput));
 
             Console.ReadKey();
         }
