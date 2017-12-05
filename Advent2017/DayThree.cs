@@ -18,26 +18,60 @@ namespace Advent2017
 
         public static int SolvePartTwo(int input)
         {
-            //int[,] arr = new int[100,100];
-            //// set vertical and horizontal direction.
-            //var hdir = 1;
-            //var vdir = 1;
+            var vpos = 0;
+            var hpos = 0;
+            double steps = 0;
+            var sum = 0;
+            var direction = 0;
+            var currentDirectionMaxSteps = 1;
+            var grid = new Dictionary<string, int>() { { "0,0", 1 } };
 
-            //var count = 0;
+            while(sum < input)
+            {
+                for(int i = 0; i < currentDirectionMaxSteps; i++)
+                {
+                    switch (direction)
+                    {
+                        case 0:
+                            hpos += 1;
+                            break;
+                        case 1:
+                            vpos += 1;
+                            break;
+                        case 2:
+                            hpos -= 1;
+                            break;
 
-            //// set vertical and horizontal position (start in middle)
-            //var hpos = 50;
-            //var vpos = 50;
+                        case 3:
+                            vpos -= 1;
+                            break;
+                        default:
+                            break;
+                    }
 
-            //arr[hpos, vpos] = 1;
+                    sum = 0;
+                    if (grid.TryGetValue(string.Format("{0},{1}", vpos + 1, hpos), out var val)) sum += val;
+                    if (grid.TryGetValue(string.Format("{0},{1}", vpos + 1, hpos + 1), out val)) sum += val;
+                    if (grid.TryGetValue(string.Format("{0},{1}", vpos, hpos + 1), out val)) sum += val;
+                    if (grid.TryGetValue(string.Format("{0},{1}", vpos - 1, hpos + 1), out val)) sum += val;
+                    if (grid.TryGetValue(string.Format("{0},{1}", vpos - 1, hpos), out val)) sum += val;
+                    if (grid.TryGetValue(string.Format("{0},{1}", vpos - 1, hpos - 1), out val)) sum += val;
+                    if (grid.TryGetValue(string.Format("{0},{1}", vpos, hpos - 1), out val)) sum += val;
+                    if (grid.TryGetValue(string.Format("{0},{1}", vpos + 1, hpos - 1), out val)) sum += val;
 
-            //var nextval = 0;
-            //while(nextval < input)
-            //{
+                    grid[string.Format("{0},{1}", vpos, hpos)] = sum;
+                    steps++;
 
-            //}
+                    if (Math.Floor(Math.Sqrt(steps)) + (Math.Floor(Math.Sqrt(steps)) * Math.Floor(Math.Sqrt(steps))) == steps && steps > 1)
+                    {
+                        currentDirectionMaxSteps++;
+                    }
+                }
 
-            return 0;
+                direction = (direction + 1) % 4;
+            }
+
+            return sum;
         }
     }
 }
