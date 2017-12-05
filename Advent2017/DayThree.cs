@@ -13,7 +13,7 @@ namespace Advent2017
             // Done by hand. Find the closest corner square number,
             // use the width of square + difference from input to calculate
             // steps.
-            return 0;
+            return 475;
         }
 
         public static int SolvePartTwo(int input)
@@ -26,7 +26,7 @@ namespace Advent2017
             var currentDirectionMaxSteps = 1;
             var grid = new Dictionary<string, int>() { { "0,0", 1 } };
 
-            while(sum < input)
+            while(true)
             {
                 for(int i = 0; i < currentDirectionMaxSteps; i++)
                 {
@@ -62,16 +62,19 @@ namespace Advent2017
                     grid[string.Format("{0},{1}", vpos, hpos)] = sum;
                     steps++;
 
-                    if (Math.Floor(Math.Sqrt(steps)) + (Math.Floor(Math.Sqrt(steps)) * Math.Floor(Math.Sqrt(steps))) == steps && steps > 1)
+                    if(sum > input)
                     {
-                        currentDirectionMaxSteps++;
+                        return sum;
                     }
+                }
+
+                if (Math.Floor(Math.Sqrt(steps)) + (Math.Floor(Math.Sqrt(steps)) * Math.Floor(Math.Sqrt(steps))) == steps && steps > 1)
+                {
+                    currentDirectionMaxSteps++;
                 }
 
                 direction = (direction + 1) % 4;
             }
-
-            return sum;
         }
     }
 }
