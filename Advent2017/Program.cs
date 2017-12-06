@@ -54,6 +54,15 @@ namespace Advent2017
             Console.Write(" part two: ");
             Console.Write(DayFive.SolvePartTwo(dayFiveInput));
 
+            Console.WriteLine();
+            Console.WriteLine("=======");
+
+            var daySixInput = File.ReadAllText("day6.txt");
+            Console.Write("Day 6: part one: ");
+            Console.Write(DaySix.SolvePartOne(daySixInput));
+            Console.Write(" part two: ");
+            Console.Write(DaySix.SolvePartTwo(daySixInput));
+
             Console.ReadKey();
         }
     }
