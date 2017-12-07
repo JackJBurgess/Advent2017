@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Advent2017
 {
@@ -10,39 +11,22 @@ namespace Advent2017
     {
         public static string SolvePartOne(string[] input)
         {
-            List<node> nodes = new List<node>();
+            Dictionary<string, node> nodes = getNodeList(input);
 
-            foreach(string s in input)
-            {
-                node n = new node();
-                n.nodes = nodes;
-                n.name = s.Substring(0, s.IndexOf(' '));
-                var w = s.Substring(s.IndexOf('(') + 1, s.IndexOf(')') - 1 - s.IndexOf('('));
-                n.weight = int.Parse(w);
-                if (s.Contains("->"))
-                {
-                    foreach (string c in s.Substring(s.IndexOf('>') + 1).Split(','))
-                    {
-                        n.children.Add(c.Trim());
-                    }
-                }
-                nodes.Add(n);
-            }
-
-            return nodes.First(n => n.parent == null).name;
+            return nodes.First(n => n.Value.parent == null).Value.name;
         }
 
-        public static string SolvePartTwo(string[] input)
+        private static Dictionary<string, node> getNodeList(string[] input)
         {
             Dictionary<string, node> nodes = new Dictionary<string, node>();
 
-            foreach(string s in input)
+            foreach (string s in input)
             {
                 var name = s.Substring(0, s.IndexOf(' '));
                 var weight = int.Parse(s.Substring(s.IndexOf('(') + 1, s.IndexOf(')') - 1 - s.IndexOf('(')));
 
                 node n;
-                if(nodes.ContainsKey(name))
+                if (nodes.ContainsKey(name))
                 {
                     nodes[name].weight = weight;
                     n = nodes[name];
@@ -57,42 +41,74 @@ namespace Advent2017
                 {
                     foreach (string c in s.Substring(s.IndexOf('>') + 1).Split(','))
                     {
-                        n.children.Add(c.Trim());
+                        n.childStrings.Add(c.Trim());
+                        if (nodes.ContainsKey(c.Trim()))
+                        {
+                            n.children.Add(nodes[c.Trim()]);
+                            nodes[c.Trim()].parent = n;
+                        }
                     }
                 }
 
-                n.parent = nodes.FirstOrDefault(p => p.Value.children.Contains(n));
+                n.parent = nodes.FirstOrDefault(p => p.Value.childStrings.Contains(n.name)).Value;
+
+                foreach (node pn in nodes.Values)
+                {
+                    if (pn.childStrings.Contains(n.name) && !pn.children.Contains(n))
+                    {
+                        pn.children.Add(n);
+                    }
+                }
             }
 
-
-            var root = nodes.First(n => n.parent == null);
-            
+            return nodes;
         }
 
-        private int calculateWeight(node n)
+        public static int SolvePartTwo(string[] input)
         {
-            return n.weight + n.nodes.Where(c => c.parent == n).Sum(c => calculateWeight(c));
-        }
+            Dictionary<string, node> nodes = getNodeList(input);
 
-        private bool isBalanced(node n)
-        {
-            return n.nodes.Where(c => c.parent == n).GroupBy(c => calculateWeight(c)).Count() == 1;
-        }
+            //find the unbalanced node
+            node unbalancedNode = new node();
+            foreach(node n in nodes.Values)
+            {
+                if(!n.isBalanced && n.children.Count(c => c.isBalanced) == n.children.Count && n.children.Count > 0)
+                {
+                    // the parent isn't balanced, but all of the children are, so this node must have the incorrect weight.
+                    unbalancedNode = n;
+                }
+            }
 
+            var groups = unbalancedNode.children.GroupBy(c => c.totalWeight);
+
+            var badWeight = groups.First(g => g.Count() == 1).First().weight;
+            var offset = groups.First(g => g.Count() == 1).First().totalWeight - groups.First(g => g.Count() != 1).First().totalWeight;
+            return badWeight - offset;
+        }
 
         public class node
         {
-            public List<node> nodes;
             public string name;
             public int weight;
-            public node parent
+            public node parent;
+            public List<node> children = new List<node>();
+            public List<string> childStrings = new List<string>();
+
+            public bool isBalanced
             {
                 get
                 {
-                    return nodes.FirstOrDefault(n => n.children.Contains(name));
+                    return children.GroupBy(c => c.totalWeight).Count() == 1;
                 }
             }
-            public List<string> children = new List<string>();
+
+            public int totalWeight
+            {
+                get
+                {
+                    return weight + children.Sum(c => c.totalWeight);
+                }
+            }
         }
 
     }
