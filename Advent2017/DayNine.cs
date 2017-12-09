@@ -9,7 +9,6 @@ namespace Advent2017
             var res = 0;
 
             var currentDepth = 0;
-            var negate = false;
             var garbage = false;
 
             for(int i = 0; i < input.Length; i++)
@@ -34,20 +33,13 @@ namespace Advent2017
                 }
                 else
                 {
-                    if (!negate)
+                    if(input[i] == '!')
                     {
-                        if (input[i] == '>')
-                        {
-                            garbage = false;
-                        }
-                        else if (input[i] == '!')
-                        {
-                            negate = true;
-                        }
+                        i++;
                     }
-                    else
+                    else if(input[i] == '>')
                     {
-                        negate = false;
+                        garbage = false;
                     }
                 }
             }
@@ -60,7 +52,6 @@ namespace Advent2017
             var res = 0;
 
             var currentDepth = 0;
-            var negate = false;
             var garbage = false;
             var garbageCount = 0;
 
@@ -86,25 +77,18 @@ namespace Advent2017
                 }
                 else
                 {
-                    if (!negate)
+                    if (input[i] == '!')
                     {
-                        if (input[i] == '>')
-                        {
-                            garbage = false;
-                        }
-                        else if (input[i] == '!')
-                        {
-                            negate = true;
-                        }
-                        else
-                        {
-                            garbageCount++;
-                        }
+                        i++;
+                        continue;
                     }
-                    else
+                    else if (input[i] == '>')
                     {
-                        negate = false;
+                        garbage = false;
+                        continue;
                     }
+                    garbageCount++;
+                    
                 }
             }
 
