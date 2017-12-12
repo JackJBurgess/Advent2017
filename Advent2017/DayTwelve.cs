@@ -12,30 +12,7 @@ namespace Advent2017
 
         public static int SolvePartOne(string[] input)
         {
-            Dictionary<string, List<string>> nodes = new Dictionary<string, List<string>>();
-            foreach (string line in input)
-            {
-                var first = line.Split(' ')[0].Trim();
-                var children = line.Substring(line.IndexOf('>') + 1).Split(',').Select(s => s.Trim()).ToList();
-                if (!nodes.ContainsKey(first))
-                {
-                    nodes.Add(first, children);
-                }
-                else
-                {
-                    nodes[first].AddRange(children.Where(c => !nodes[first].Contains(c)));
-                }
-
-                foreach (string child in children)
-                {
-                    if (!nodes.ContainsKey(child))
-                    {
-                        nodes.Add(child, new List<string>(){first});
-                    }
-                }
-            }
-
-
+            Dictionary<string, List<string>> nodes = createNodeList(input);
             fillConnectedNodes(nodes, "0");
             return connectedNodes.Count();
         }
@@ -52,9 +29,9 @@ namespace Advent2017
             }
         }
 
-        public static int SolvePartTwo(string[] input)
+        private static Dictionary<string, List<string>> createNodeList(string[] input)
         {
-            Dictionary<string, List<string>> nodes = new Dictionary<string, List<string>>();
+            var nodes = new Dictionary<string, List<string>>();
             foreach (string line in input)
             {
                 var first = line.Split(' ')[0].Trim();
@@ -76,6 +53,12 @@ namespace Advent2017
                     }
                 }
             }
+            return nodes;
+        }
+
+        public static int SolvePartTwo(string[] input)
+        {
+            Dictionary<string, List<string>> nodes = createNodeList(input);
 
             var groups = 0;
             var nodeList = new List<string>();
@@ -90,12 +73,6 @@ namespace Advent2017
             }
 
             return groups;
-        }
-
-        private class Node
-        {
-            public string name;
-            public List<string> edges;
         }
     }
 }
