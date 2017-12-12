@@ -81,8 +81,6 @@ namespace Advent2017
             //Console.Write(" part two: ");
             //Console.Write(DayEight.SolvePartTwo(dayEightInput));
 
-            //Console.ReadKey();
-
             //Console.WriteLine();
             //Console.WriteLine("=======");
 
@@ -92,13 +90,23 @@ namespace Advent2017
             //Console.Write(" part two: ");
             //Console.Write(DayNine.SolvePartTwo(dayNineInput));
 
-            //Console.ReadKey();
+            //Console.WriteLine();
+            //Console.WriteLine("=======");
 
-            var dayTenInput = File.ReadAllText("day10.txt");
-            Console.Write("Day 10: part one: ");
-            Console.Write(DayTen.SolvePartOne(dayTenInput));
+            //var dayTenInput = File.ReadAllText("day10.txt");
+            //Console.Write("Day 10: part one: ");
+            //Console.Write(DayTen.SolvePartOne(dayTenInput));
+            //Console.Write(" part two: ");
+            //Console.Write(DayTen.SolvePartTwo(dayTenInput));
+
+            //Console.WriteLine();
+            //Console.WriteLine("=======");
+
+            var dayElevenInput = File.ReadAllText("day11.txt");
+            Console.Write("Day 11: part one: ");
+            Console.Write(DayEleven.SolvePartOne(dayElevenInput));
             Console.Write(" part two: ");
-            Console.Write(DayTen.SolvePartTwo(dayTenInput));
+            Console.Write(DayEleven.SolvePartTwo(dayElevenInput));
 
             Console.ReadKey();
         }
