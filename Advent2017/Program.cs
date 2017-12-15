@@ -109,22 +109,27 @@ namespace Advent2017
             //Console.Write(DayEleven.SolvePartTwo(dayElevenInput));
 
             //var dayTwelveInput = File.ReadAllLines("day12.txt");
-            //Console.Write("Day 11: part one: ");
+            //Console.Write("Day 12: part one: ");
             //Console.Write(DayTwelve.SolvePartOne(dayTwelveInput));
             //Console.Write(" part two: ");
             //Console.Write(DayTwelve.SolvePartTwo(dayTwelveInput));
 
             //var dayThirteenInput = File.ReadAllLines("day13.txt");
-            //Console.Write("Day 11: part one: ");
+            //Console.Write("Day 13: part one: ");
             //Console.Write(DayThirteen.SolvePartOne(dayThirteenInput));
             //Console.Write(" part two: ");
             //Console.Write(DayThirteen.SolvePartTwo(dayThirteenInput));
 
-            var dayFourteenInput = "nbysizxe";
-            Console.Write("Day 11: part one: ");
-            Console.Write(DayFourteen.SolvePartOne(dayFourteenInput));
+            //var dayFourteenInput = "nbysizxe";
+            //Console.Write("Day 14: part one: ");
+            //Console.Write(DayFourteen.SolvePartOne(dayFourteenInput));
+            //Console.Write(" part two: ");
+            //Console.Write(DayFourteen.SolvePartTwo(dayFourteenInput));
+
+            Console.Write("Day 15: part one: ");
+            Console.Write(DayFifteen.SolvePartOne(699,124));
             Console.Write(" part two: ");
-            Console.Write(DayFourteen.SolvePartTwo(dayFourteenInput));
+            Console.Write(DayFifteen.SolvePartTwo(699,124));
 
             Console.ReadKey();
         }
