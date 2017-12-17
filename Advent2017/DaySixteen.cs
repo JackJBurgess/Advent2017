@@ -19,6 +19,11 @@ namespace Advent2017
 
         private static void dance(string[] instructions)
         {
+            var c1 = '\0';
+            var c2 = '\0';
+            var i1 = 0;
+            var i2 = 0;
+
             foreach (string instruction in instructions)
             {
                 char op = instruction[0];
@@ -29,20 +34,19 @@ namespace Advent2017
                         chars = chars.Skip(16 - num).Concat(chars.Take(16 - num)).ToArray();
                         break;
                     case 'x':
-                        var firstIndex = int.Parse(instruction.Substring(1).Split('/')[0]);
-                        var secondIndex = int.Parse(instruction.Substring(1).Split('/')[1]);
-                        var firstChar = chars[firstIndex];
-                        var secondChar = chars[secondIndex];
-                        chars[firstIndex] = secondChar;
-                        chars[secondIndex] = firstChar;
+                        i1 = int.Parse(instruction.Substring(1).Split('/')[0]);
+                        i2 = int.Parse(instruction.Substring(1).Split('/')[1]);
+                        c1 = chars[i1];
+                        chars[i1] = chars[i2];
+                        chars[i2] = c1;
                         break;
                     case 'p':
-                        var charA = instruction[1];
-                        var charB = instruction[3];
-                        var i1 = Array.IndexOf(chars, charA);
-                        var i2 = Array.IndexOf(chars, charB);
-                        chars[i1] = charB;
-                        chars[i2] = charA;
+                        c1 = instruction[1];
+                        c2 = instruction[3];
+                        i1 = Array.IndexOf(chars, c1);
+                        i2 = Array.IndexOf(chars, c2);
+                        chars[i1] = c2;
+                        chars[i2] = c1;
                         break;
                 }
             }
@@ -60,7 +64,7 @@ namespace Advent2017
                 dance(instructions);
                 loop++;
 
-            } while (string.Concat(order) != string.Concat(chars));
+            } while (!order.SequenceEqual(chars));
 
             loop = 999999999 % loop;
 

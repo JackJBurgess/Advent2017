@@ -131,11 +131,16 @@ namespace Advent2017
             //Console.Write(" part two: ");
             //Console.Write(DayFifteen.SolvePartTwo(699,124));
 
-            var daySixteenInput = File.ReadAllText("day16.txt");
+            //var daySixteenInput = File.ReadAllText("day16.txt");
+            //Console.Write("Day 16: part one: ");
+            //Console.Write(DaySixteen.SolvePartOne(daySixteenInput));
+            //Console.Write(" part two: ");
+            //Console.Write(DaySixteen.SolvePartTwo(daySixteenInput));
+
             Console.Write("Day 16: part one: ");
-            Console.Write(DaySixteen.SolvePartOne(daySixteenInput));
+            Console.Write(DaySeventeen.SolvePartOne(394));
             Console.Write(" part two: ");
-            Console.Write(DaySixteen.SolvePartTwo(daySixteenInput));
+            Console.Write(DaySeventeen.SolvePartTwo(394));
 
             Console.ReadKey();
         }
